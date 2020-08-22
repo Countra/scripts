@@ -21,12 +21,12 @@ if [[ "${ID}" == "centos" ]];then
         echo -e "${OK} ${GreenBG} 当前系统为 Debian${Font}"
         INS="apt"
         $INS update
-        $INS-get install -y zlib zlib1g-dev libbz2-dev  libsqlite3-dev gcc make build-essential libssl-dev openssl-devel
+        apt-get install -y gcc make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev
     elif [[ "${ID}" == "ubuntu" ]];then
         echo -e "${OK} ${GreenBG} 当前系统为 Ubuntu${Font}"
         INS="apt"
         $INS update
-        $INS-get install -y zlib zlib1g-dev libbz2-dev  libsqlite3-dev gcc make build-essential libssl-dev openssl-devel
+        apt-get install -y gcc make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev
     else
         echo -e "${Error} ${RedBG} 当前系统为 ${ID} 不在支持的系统列表内 ${Font}"
         exit 1
