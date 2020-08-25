@@ -725,12 +725,12 @@ acme_cron_update() {
 }
 
 install_v2ray_ws_tls() {
-    domain_check
     is_root
     check_system
     chrony_install
     dependency_install
     basic_optimization
+    domain_check
     old_config_exist_check
     port_alterid_set
     v2ray_install
