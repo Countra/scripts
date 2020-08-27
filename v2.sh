@@ -290,7 +290,14 @@ web_camouflage() {
     rm -rf /home/wwwroot
     mkdir -p /home/wwwroot
     cd /home/wwwroot || exit
-    git clone https://github.com/Countra/html_pic.git
+    # 轻量伪装网站
+    mkdir html_pic && cd html_pic
+    wget https://raw.githubusercontent.com/Countra/scripts/master/fake.zip
+    unzip fake.zip
+    mv ./fake/* ./
+    rm *.zip && rm -rf /home/wwwroot/html_pic/fake
+    # 图片流转
+    # git clone https://github.com/Countra/html_pic.git
     judge "web 站点伪装"
 }
 v2ray_install() {
