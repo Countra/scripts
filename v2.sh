@@ -32,7 +32,8 @@ nginx_conf="${nginx_conf_dir}/v2ray.conf"
 nginx_dir="/etc/nginx"
 web_dir="/home/wwwroot"
 nginx_openssl_src="/usr/local/src"
-v2ray_bin_dir="/usr/bin/v2ray"
+v2ray_bin_dir_old="/usr/bin/v2ray"
+v2ray_bin_dir="/usr/local/bin"
 v2ray_info_file="$HOME/v2ray_info.inf"
 v2ray_qr_config_file="/usr/local/vmess_qr.json"
 nginx_systemd_file="/etc/systemd/system/nginx.service"
@@ -558,6 +559,7 @@ EOF
 
 start_process_systemd() {
     systemctl daemon-reload
+    chown -R root.root /var/log/v2ray/
     if [[ "$shell_mode" != "h2" ]]; then
         systemctl restart nginx
         judge "Nginx 启动"
