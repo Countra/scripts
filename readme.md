@@ -1,4 +1,4 @@
-# 自用脚本合集
+# Self-use script collection
 
 ## python3.8
 
@@ -9,11 +9,17 @@ wget https://raw.githubusercontent.com/Countra/scripts/master/python/install_py3
 ## v2+ws+nginx+tls(vmess)
 
 ```shell
-wget -N --no-check-certificate -q -O install.sh "https://raw.githubusercontent.com/Countra/scripts/master/v2ray/v2.sh" && chmod +x install.sh && bash install.sh **域名**
+wget -N --no-check-certificate -q -O install.sh "https://raw.githubusercontent.com/Countra/scripts/master/v2ray/v2.sh" && chmod +x install.sh && bash install.sh **domain**
 ```
 
-## 服务器初始化设置
+## Server initialization settings
 
 ```shell
 wget -N --no-check-certificate -q -O init.sh "https://raw.githubusercontent.com/Countra/scripts/master/init/init_ra.sh" && chmod +x init.sh && bash init.sh
+```
+
+## Raspberry Pi
+
+```shell
+https://github.com/Countra/scripts/raspberrypi
 ```
