@@ -293,7 +293,7 @@ web_camouflage() {
     cd /home/wwwroot || exit
     # 轻量伪装网站
     mkdir html_pic && cd html_pic
-    wget https://raw.githubusercontent.com/Countra/scripts/master/fake.zip
+    wget https://raw.githubusercontent.com/Countra/scripts/master/v2ray/fake.zip
     unzip fake.zip
     mv ./fake/* ./
     rm *.zip && rm -rf /home/wwwroot/html_pic/fake
@@ -310,7 +310,7 @@ v2ray_install() {
     fi
     mkdir -p /root/v2ray
     cd /root/v2ray || exit
-    wget -N --no-check-certificate https://raw.githubusercontent.com/Countra/scripts/${github_branch}/v2ray.sh
+    wget -N --no-check-certificate https://raw.githubusercontent.com/Countra/scripts/${github_branch}/v2ray/v2ray.sh
 
     if [[ -f v2ray.sh ]]; then
         rm -rf $v2ray_systemd_file
@@ -486,7 +486,7 @@ acme() {
 }
 v2ray_conf_add_tls() {
     cd /etc/v2ray || exit
-    wget --no-check-certificate https://raw.githubusercontent.com/Countra/scripts/${github_branch}/tls/config.json -O config.json
+    wget --no-check-certificate https://raw.githubusercontent.com/Countra/scripts/${github_branch}/v2ray/tls/config.json -O config.json
     modify_path
     modify_alterid
     modify_inbound_port
@@ -601,7 +601,7 @@ enable_process_systemd() {
 #    judge "rc.local 配置"
 #}
 acme_cron_update() {
-    wget -N -P /usr/bin --no-check-certificate "https://raw.githubusercontent.com/Countra/scripts/${github_branch}/ssl_update.sh"
+    wget -N -P /usr/bin --no-check-certificate "https://raw.githubusercontent.com/Countra/scripts/${github_branch}/v2ray/ssl_update.sh"
     if [[ $(crontab -l | grep -c "ssl_update.sh") -lt 1 ]]; then
       if [[ "${ID}" == "centos" ]]; then
           #        sed -i "/acme.sh/c 0 3 * * 0 \"/root/.acme.sh\"/acme.sh --cron --home \"/root/.acme.sh\" \
