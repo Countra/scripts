@@ -38,6 +38,12 @@ if [[ "${ID}" == "kali" ]];then
 # 安装必备软件
 $INS install -y screen
 
+
+screen -dmS ${arpspoof_screen01}
+screen -dmS ${arpspoof_screen02}
+screen -dmS ${driftnet_screen}
+screen -dmS ${ettercap_screen}
+
 backToMenu(){
 read -s -n1 -p "按任意键返回菜单 ... "
 echo -e "\n"
@@ -99,9 +105,6 @@ backToMenu
 
 arpspoof_control(){
 
-screen -dmS ${arpspoof_screen01}
-screen -dmS ${arpspoof_screen02}
-
 clear
     echo -e "注意：工作环境：${Green}screen${Font} ${RedBG}请新开一个终端,输入命令--> screen -r ${arpspoof_screen01} 或 ${arpspoof_screen02}${Font}"
     for (( k = 1;k < 200; k++))
@@ -152,7 +155,7 @@ read -rp "是否开启ip转发(Y/N),默认Y: " ip_forward
     *)
         echo 0 >/proc/sys/net/ipv4/ip_forward
         echo -e "${RedBG} 已关闭IP转发 ${Font}"
-        exit 2
+        sleep 2
         ;;
     esac
 backToMenu
@@ -218,7 +221,6 @@ clear
 
 driftnet_attack(){
 
-screen -dmS ${driftnet_screen}
 echo -e "注意：工作环境：${Green}screen${Font} ${RedBG}请新开一个终端,输入命令--> screen -r ${driftnet_screen} ${Font}"
 read -s -n1 -p "按任意键确认已开启 ... "
 echo -e "\n"
@@ -228,8 +230,7 @@ backToMenu
 }
 
 ettercap_attack(){
-
-screen -dmS ${ettercap_screen}
+    
 echo -e "注意：工作环境：${Green}screen${Font} ${RedBG}请新开一个终端,输入命令--> screen -r ${ettercap_screen} ${Font}"
 read -s -n1 -p "按任意键确认已开启 ... "
 echo -e "\n"
