@@ -13,7 +13,7 @@ RedBG="\033[41;37m"
 Font="\033[0m"
 
 ID="None"
-shell_version="v1.0"
+shell_version="v1.1"
 ipaddrinfo="None"
 network_card="None"
 gateway="None"
@@ -37,12 +37,6 @@ if [[ "${ID}" == "kali" ]];then
 
 # 安装必备软件
 $INS install -y screen
-
-
-screen -dmS ${arpspoof_screen01}
-screen -dmS ${arpspoof_screen02}
-screen -dmS ${driftnet_screen}
-screen -dmS ${ettercap_screen}
 
 backToMenu(){
 read -s -n1 -p "按任意键返回菜单 ... "
@@ -103,9 +97,54 @@ backToMenu
 
 }
 
-arpspoof_control(){
+createScreenSession(){
 
 clear
+
+screen -ls | grep -P ${arpspoof_screen01}
+if [ $? -ne 0 ]; then
+    screen -dmS ${arpspoof_screen01}
+    echo -e "${Green}已创建-${arpspoof_screen01}-${Font}"
+else
+    echo -e "${RedBG}已存在-${arpspoof_screen01}-${Font}"
+fi
+sleep 0.5
+
+screen -ls | grep -P ${arpspoof_screen02}
+if [ $? -ne 0 ]; then
+    screen -dmS ${arpspoof_screen02}
+    echo -e "${Green}已创建-${arpspoof_screen02}-${Font}"
+else
+    echo -e "${RedBG}已存在-${arpspoof_screen02}-${Font}"
+fi
+sleep 0.5
+
+screen -ls | grep -P ${driftnet_screen}
+if [ $? -ne 0 ]; then
+    screen -dmS ${driftnet_screen}
+    echo -e "${Green}已创建-${driftnet_screen}-${Font}"
+else
+    echo -e "${RedBG}已存在-${driftnet_screen}-${Font}"
+fi
+sleep 0.5
+
+screen -ls | grep -P ${ettercap_screen}
+if [ $? -ne 0 ]; then
+    screen -dmS ${ettercap_screen}
+    echo -e "${Green}已创建-${ettercap_screen}-${Font}"
+else
+    echo -e "${RedBG}已存在-${ettercap_screen}-${Font}"
+fi
+
+sleep 1
+clear
+
+}
+
+
+arpspoof_control(){
+
+createScreenSession
     echo -e "注意：工作环境：${Green}screen${Font} ${RedBG}请新开一个终端,输入命令--> screen -r ${arpspoof_screen01} 或 ${arpspoof_screen02}${Font}"
     for (( k = 1;k < 200; k++))
 do
@@ -140,6 +179,7 @@ done
 
 backToMenu
 clear
+
 }
 
 network_traffic(){
@@ -159,6 +199,7 @@ read -rp "是否开启ip转发(Y/N),默认Y: " ip_forward
         ;;
     esac
 backToMenu
+clear
 
 }
 
@@ -177,6 +218,49 @@ echo -e "${Green}已删除会话 -${screen_name}${Font}"
 
 }
 
+delete_screen_all(){
+
+screen -ls | grep -P ${arpspoof_screen01}
+if [ $? -ne 0 ]; then
+    echo -e "${RedBG}不存在-${arpspoof_screen01}-${Font}"
+else
+    screen -S ${arpspoof_screen01} -X quit
+    echo -e "${Green}已删除-${arpspoof_screen01}-${Font}"
+fi
+sleep 0.5
+
+screen -ls | grep -P ${arpspoof_screen02}
+if [ $? -ne 0 ]; then
+    echo -e "${RedBG}不存在-${arpspoof_screen02}-${Font}"
+else
+    screen -S ${arpspoof_screen02} -X quit
+    echo -e "${Green}已删除-${arpspoof_screen02}-${Font}"
+fi
+sleep 0.5
+
+screen -ls | grep -P ${driftnet_screen}
+if [ $? -ne 0 ]; then
+    echo -e "${RedBG}不存在-${driftnet_screen}-${Font}"
+else
+    screen -S ${driftnet_screen} -X quit
+    echo -e "${Green}已删除-${driftnet_screen}-${Font}"
+fi
+sleep 0.5
+
+screen -ls | grep -P ${ettercap_screen}
+if [ $? -ne 0 ]; then
+    echo -e "${RedBG}不存在-${ettercap_screen}-${Font}"
+else
+    screen -S ${ettercap_screen} -X quit
+    echo -e "${Green}已删除-${ettercap_screen}-${Font}"
+fi
+sleep 0.5
+
+echo -e "${Green}已删除所有本次创建的会话${Font}"
+sleep 1
+
+}
+
 screen_menu(){
     clear
     for (( j = 1;j < 200; j++))
@@ -186,7 +270,8 @@ do
     echo -e "${Green}0.${Font}  查看终端会话列表"
     echo -e "${Green}1.${Font}  进入某一会话"
     echo -e "${Green}2.${Font}  结束某一会话"
-    echo -e "${Green}3.${Font}  返回主菜单"
+    echo -e "${Green}3.${Font}  删除所有会话"
+    echo -e "${Green}4.${Font}  返回主菜单"
     read -rp "请输入数字：" menu_num_screen
     case $menu_num_screen in
     0)
@@ -199,6 +284,9 @@ do
         delete_screen
         ;;
     3)
+        delete_screen_all
+        ;;
+    4)
         j=200
         ;;
     *)
@@ -221,6 +309,7 @@ clear
 
 driftnet_attack(){
 
+createScreenSession
 echo -e "注意：工作环境：${Green}screen${Font} ${RedBG}请新开一个终端,输入命令--> screen -r ${driftnet_screen} ${Font}"
 read -s -n1 -p "按任意键确认已开启 ... "
 echo -e "\n"
@@ -230,7 +319,8 @@ backToMenu
 }
 
 ettercap_attack(){
-    
+
+createScreenSession
 echo -e "注意：工作环境：${Green}screen${Font} ${RedBG}请新开一个终端,输入命令--> screen -r ${ettercap_screen} ${Font}"
 read -s -n1 -p "按任意键确认已开启 ... "
 echo -e "\n"
