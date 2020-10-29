@@ -45,12 +45,27 @@ ln -s /usr/local/python3/bin/pip3 /usr/bin/pip38
 echo 'export PATH=$PATH:$HOME/bin:/usr/local/python3/bin' >> ~/.bash_profile
 source ~/.bash_profile
 
+# pip38安装一下一些必要的库
+read -rp "是否安装python38的常用包: (Y/N)" python_install
+    [[ -z ${python_install} ]] && python_install="Y"
+    case $python_install in
+    [yY][eE][sS] | [yY])
+        echo -e "${GreenBG} 更新pip版本 ${Font}"
+        /usr/local/python3/bin/python3.8 -m pip install --upgrade pip
+        echo -e "${GreenBG} 安装httpx ${Font}"
+        pip38 install httpx
+        echo -e "${GreenBG} 安装translate ${Font}"
+        pip38 install translate
+        echo -e "${GreenBG} 安装psutil ${Font}"
+        pip38 install psutil
+        echo -e "${GreenBG} 配置完成 ${Font}"
+        ;;
+    *)
+        echo -e "${RedBG} 跳过安装python38常用包 ${Font}"
+        ;;
+    esac
+
 echo -e "${OK} ${GreenBG} 安装完成 测试如下${Font}"
 echo -e "${OK} ${GreenBG}38版本的python和pip的命令分别为python38和pip38${Font}"
 python38 -V
 pip38 -V
-
-# pip38安装一下一些必要的库
-/usr/local/python3/bin/python3.8 -m pip install --upgrade pip
-pip38 install httpx
-pip38 install translate
