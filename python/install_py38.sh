@@ -58,6 +58,10 @@ read -rp "是否安装python38的常用包: (Y/N)" python_install
         pip38 install translate
         echo -e "${GreenBG} 安装psutil ${Font}"
         pip38 install psutil
+        echo -e "${GreenBG} 安装requests ${Font}"
+        pip38 install requests
+        echo -e "${GreenBG} 安装pyaes ${Font}"
+        pip38 install pyaes
         echo -e "${GreenBG} 配置完成 ${Font}"
         ;;
     *)
