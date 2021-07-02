@@ -23,3 +23,11 @@ wget -N --no-check-certificate -q -O init.sh "https://raw.githubusercontent.com/
 ```shell
 https://github.com/Countra/scripts/raspberrypi
 ```
+
+## Add linux swap size
+
+> *Test environment: debian*
+
+```shell
+wget -N --no-check-certificate -q -O addSwap.sh "https://raw.githubusercontent.com/Countra/scripts/master/linuxUtil/addSwap/addSwap.sh" && chmod +x addSwap.sh && bash addSwap.sh ** Fill in the size you need to increase /G **
+```
